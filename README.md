@@ -1,16 +1,19 @@
-# Project Title: Full-Stack Application (SUPER-MARKET)
+# Project Title: Full-Stack Application (SUPER-MARKET) - Microservices
 
 ## Description
 
-**Short Description:** A full-stack application with a focus on user authentication and authorization.
+**Short Description:** A microservices-based full-stack application with separate services for user authentication and product management.
 
-**Long Description:** This project is a complete full-stack application featuring a secure backend for user management and a placeholder for a modern frontend. It's designed to be a starting point for building complex web applications that require robust user authentication, session management, and a scalable architecture. This project is for developers looking for a template for their full-stack projects.
+**Long Description:** This project is a complete full-stack application built with a microservices architecture. It features a secure `auth` service for user management and a `product` service for handling products. It's designed to be a scalable starting point for building complex web applications that require robust user authentication, session management, and separation of concerns.
 
 ## Tech Stack
 
 - **Frontend:** (To be determined - e.g., React, Vue, Angular)
 - **Backend:** Node.js, Express.js
-- **Database:** MongoDB (with Mongoose), Redis (for session management)
+- **Services:**
+    - **Auth Service:** Handles user registration, login, and authentication.
+    - **Product Service:** Manages product listings, details, and inventory.
+- **Database:** MongoDB (with Mongoose), Redis (for session management in the auth service)
 - **Hosting/Deployment:** (To be determined - e.g., Heroku, AWS, Vercel)
 - **Tools/Frameworks:**
   - `bcryptjs`: For hashing passwords
@@ -18,33 +21,53 @@
   - `cookie-parser`: For parsing cookies
   - `express-validator`: For validating request data
   - `dotenv`: For managing environment variables
+  - `multer`: For handling file uploads (in the product service)
+  - `imagekit`: For image storage and optimization (in the product service)
 
 ## Features
 
-- User registration
-- User login with JWT-based authentication
-- Secure password hashing
-- Session management with Redis
-- Input validation
+- **Auth Service:**
+    - User registration
+    - User login with JWT-based authentication
+    - Secure password hashing
+    - Session management with Redis
+    - Input validation
+- **Product Service:**
+    - (Placeholder for) Product creation, retrieval, updating, and deletion (CRUD)
+    - (Placeholder for) Image uploads for products
 
 ## Installation & Setup
 
-### Backend
+This project consists of two separate services: `auth` and `product`. You need to run them independently.
 
-1. **Clone the repository:**
-   ```bash
-   git clone <repository-url>
-   ```
-2. **Navigate to the `auth` directory:**
+### Auth Service
+
+1. **Navigate to the `auth` directory:**
    ```bash
    cd auth
    ```
-3. **Install dependencies:**
+2. **Install dependencies:**
    ```bash
    npm install
    ```
-4. **Create a `.env` file** in the `auth` directory and add the required environment variables (see below).
-5. **Run the server:**
+3. **Create a `.env` file** in the `auth` directory and add the required environment variables (see below).
+4. **Run the server:**
+   ```bash
+   npm run dev
+   ```
+
+### Product Service
+
+1. **Navigate to the `product` directory:**
+   ```bash
+   cd product
+   ```
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+3. **Create a `.env` file** in the `product` directory and add the required environment variables (see below).
+4. **Run the server:**
    ```bash
    npm run dev
    ```
@@ -55,22 +78,34 @@
 
 ## Environment Variables
 
-Create a `.env` file in the `auth` directory with the following variables:
+### Auth Service (`auth/.env`)
 
 ```
-PORT=3000
+PORT=3001
 MONGODB_URI=your_mongodb_connection_string
 REDIS_URI=your_redis_connection_string
 JWT_SECRET=your_jwt_secret
 ```
 
+### Product Service (`product/.env`)
+
+```
+PORT=3002
+MONGODB_URI=your_mongodb_connection_string
+IMAGEKIT_PUBLIC_KEY=your_imagekit_public_key
+IMAGEKIT_PRIVATE_KEY=your_imagekit_private_key
+IMAGEKIT_URL_ENDPOINT=your_imagekit_url_endpoint
+```
+
 ## Usage
 
-Once the backend server is running, you can use a tool like Postman or `curl` to interact with the API.
+Once the backend services are running, you can use a tool like Postman or `curl` to interact with the APIs.
 
 ## API Documentation
 
-### Register a new user
+### Auth Service
+
+#### Register a new user
 
 - **Endpoint:** `POST /api/auth/register`
 - **Request Body:**
@@ -88,7 +123,7 @@ Once the backend server is running, you can use a tool like Postman or `curl` to
   }
   ```
 
-### Login a user
+#### Login a user
 
 - **Endpoint:** `POST /api/auth/login`
 - **Request Body:**
@@ -105,27 +140,52 @@ Once the backend server is running, you can use a tool like Postman or `curl` to
   }
   ```
 
+### Product Service
+
+(API documentation to be added)
+
 ## Folder Structure
 
 ```
-auth/
-├── .env
-├── package.json
-├── server.js
-└── src/
-    ├── app.js
-    ├── controllers/
-    │   └── auth.controller.js
-    ├── db/
-    │   ├── db.js
-    │   └── redis.js
-    ├── middlewares/
-    │   ├── auth.middleware.js
-    │   └── validator.middleware.js
-    ├── models/
-    │   └── user.model.js
-    └── routes/
-        └── auth.route.js
+.
+├── auth/
+│   ├── .env
+│   ├── package.json
+│   ├── server.js
+│   └── src/
+│       ├── app.js
+│       ├── controllers/
+│       │   └── auth.controller.js
+│       ├── db/
+│       │   ├── db.js
+│       │   └── redis.js
+│       ├── middlewares/
+│       │   ├── auth.middleware.js
+│       │   └── validator.middleware.js
+│       ├── models/
+│       │   └── user.model.js
+│       └── routes/
+│           └── auth.route.js
+├── product/
+│   ├── .env
+│   ├── package.json
+│   ├── server.js
+│   └── src/
+│       ├── app.js
+│       ├── controllers/
+│       │   └── product.controller.js
+│       ├── db/
+│       │   └── db.js
+│       ├── middlewares/
+│       │   ├── auth.middleware.js
+│       │   └── validator.middleware.js
+│       ├── models/
+│       │   └── product.model.js
+│       ├── routes/
+│       │   └── product.route.js
+│       └── services/
+│           └── imagekit.service.js
+└── README.md
 ```
 
 ## Contributing
@@ -147,7 +207,8 @@ This project is licensed under the ISC License.
 - Implement password reset functionality
 - Add social login (e.g., Google, GitHub)
 - Develop the frontend application
-- Add unit and integration tests
+- Implement inter-service communication (e.g., using a message broker like RabbitMQ or an API gateway)
+- Add unit and integration tests for both services
 
 ## Acknowledgements
 
