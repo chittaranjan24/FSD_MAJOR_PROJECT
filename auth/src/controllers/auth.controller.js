@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const userModel = require("../models/user.model")
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -130,6 +131,10 @@ async function logoutUser(req, res) {
     try {
         const token = req.cookies.token;
 
+        if (!token) {
+            return res.status(400).json({ message: 'No token found in cookies' });
+        }
+
         if(token){
             await redis.set(`blacklist:${token}`, token, 'EX', 24 * 60 * 60); // Set expiry to 1 day
             res.clearCookie("token", {
@@ -202,9 +207,11 @@ async function deleteUserAddress(req, res) {
         const userId = req.user.id;
         const { addressId } = req.params;
 
-        const user = await userModel.findByIdAndUpdate(userId, {
-            $pull: { address: { _id: addressId } }
-        }, { new: true });
+        const user = await userModel.findByIdAndUpdate(
+            userId, 
+            { $pull: { address: { _id: addressId } } }, 
+            { new: true }
+        );
 
         if (!user) {
             return res.status(404).json({ message: "User not found" });

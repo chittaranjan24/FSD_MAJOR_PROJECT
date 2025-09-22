@@ -17,17 +17,17 @@ router.get('/me', authMiddlewares.authMiddleware, authController.getCurrentUser)
 //GET /api/auth/logout
 router.get('/logout', authController.logoutUser)
 
-//GET /users/me/address
+//GET /api/auth/users/me/address
 router.get('/users/me/address', authMiddlewares.authMiddleware, authController.getUserAddress)
 
-//POST /users/me/address
+//POST /api/auth/users/me/address
 router.post('/users/me/address', 
     authMiddlewares.authMiddleware, 
     validator.validateUserAddress, 
     authController.addUserAddress
 );
 
-//DELETE /users/me/address/:addressId
+//DELETE /api/auth/users/me/address/:addressId
 router.delete('/users/me/address/:addressId', 
     authMiddlewares.authMiddleware, 
     authController.deleteUserAddress
