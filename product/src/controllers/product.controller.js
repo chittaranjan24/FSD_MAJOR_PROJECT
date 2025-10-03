@@ -96,12 +96,15 @@ async function updateProduct(req, res) {
         }
 
         const product = await productModel.findOne({
-            _id: id,
-            seller: req.user.id
+            _id: id
         });
 
         if (!product) {
             return res.status(404).json({ message: "Product not found or you are not authorized to update this product" });
+        }
+
+        if (product.seller.toString() !== req.user.id) {
+            return res.status(403).json({ message: "You are not authorized to update this product" });
         }
 
         const allowedUpdates = ['title', 'description', 'price'];
@@ -133,10 +136,61 @@ async function updateProduct(req, res) {
     }
 }
 
+async function deleteProduct(req, res) {
+    try {
+        const { id } = req.params;
+        
+        if(!mongoose.Types.ObjectId.isValid(id)){
+            return res.status(400).json({ message: "Invalid product ID" });
+        }
+
+        const product = await productModel.findOne({
+            _id: id
+        });
+
+        if (!product) {
+            return res.status(404).json({ message: "Product not found or you are not authorized to delete this product" });
+        }
+
+        if (product.seller.toString() !== req.user.id) {
+            return res.status(403).json({ message: "You are not authorized to delete this product" });
+        }
+
+        await productModel.findOneAndDelete({ _id: id });
+
+        return res.status(200).json({
+            message: "Product deleted successfully"
+        });
+    } catch (error) {
+        console.log('Error in deleting product:', error);
+        return res.status(500).json({ message: "Internal Server Error" });
+    }
+}
+
+async function getProductsBySeller(req, res) {
+    try {
+        const seller = req.user;
+
+        const { skip = 0, limit = 20 } = req.query;
+
+        const products = await productModel.find({ seller: seller.id }).skip(Number(skip)).limit(Number(Math.min(limit, 20)));
+
+        return res.status(200).json({
+            message: "Products fetched successfully",
+            productData: products
+        });
+    } catch (error) {
+        console.log('Error fetch get product by seller:', error);
+        return res.status(500).json({ message: "Internal Server Error" });
+    }
+}
+
 
 module.exports = {
     createProduct,
     getProducts,
     getProductById,
-    updateProduct
+    updateProduct,
+    deleteProduct,
+    getProductsBySeller
 };

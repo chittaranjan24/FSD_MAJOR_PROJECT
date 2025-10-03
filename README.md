@@ -1,28 +1,47 @@
-# Project Title: Full-Stack Application (SUPER-MARKET) - Microservices
+<div align="center">
+  <h1>Full-Stack Application (SUPER-MARKET) - Microservices</h1>
+  <p>
+    A microservices-based full-stack application with separate services for user authentication and product management.
+  </p>
+  <p>
+    <a href="https://github.com/chittaranjan24/FSD_MAJOR_PROJECT/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-ISC-blue.svg" alt="License"></a>
+    <a href="https://www.linkedin.com/in/chittaranjan-shit2/"><img src="https://img.shields.io/badge/LinkedIn-Chittaranjan-blue?style=flat-square&logo=linkedin" alt="LinkedIn"></a>
+  </p>
+</div>
 
 ## Description
 
-**Short Description:** A microservices-based full-stack application with separate services for user authentication and product management.
-
-**Long Description:** This project is a complete full-stack application built with a microservices architecture. It features a secure `auth` service for user management and a `product` service for handling products. It's designed to be a scalable starting point for building complex web applications that require robust user authentication, session management, and separation of concerns.
+This project is a complete full-stack application built with a microservices architecture. It features a secure `auth` service for user management and a `product` service for handling products. It's designed to be a scalable starting point for building complex web applications that require robust user authentication, session management, and separation of concerns.
 
 ## Tech Stack
 
-- **Frontend:** (To be determined - e.g., React, Vue, Angular)
-- **Backend:** Node.js, Express.js
-- **Services:**
-    - **Auth Service:** Handles user registration, login, and authentication.
-    - **Product Service:** Manages product listings, details, and inventory.
-- **Database:** MongoDB (with Mongoose), Redis (for session management in the auth service)
-- **Hosting/Deployment:** (To be determined - e.g., Heroku, AWS, Vercel)
-- **Tools/Frameworks:**
-  - `bcryptjs`: For hashing passwords
-  - `jsonwebtoken`: For creating and verifying JSON Web Tokens
-  - `cookie-parser`: For parsing cookies
-  - `express-validator`: For validating request data
-  - `dotenv`: For managing environment variables
-  - `multer`: For handling file uploads (in the product service)
-  - `imagekit`: For image storage and optimization (in the product service)
+### Frontend (To be determined)
+<p>
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React">
+</p>
+
+### Backend
+<p>
+  <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js">
+  <img src="https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white" alt="Express.js">
+</p>
+
+### Database
+<p>
+  <img src="https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB">
+  <img src="https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white" alt="Redis">
+</p>
+
+### Tools/Frameworks
+<p>
+  <img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white" alt="JWT">
+  <img src="https://img.shields.io/badge/dotenv-ECD53F?style=for-the-badge&logo=dotenv&logoColor=black" alt="dotenv">
+    <img src="https://img.shields.io/badge/Bcrypt-4B5972?style=for-the-badge" alt="Bcrypt">
+  <img src="https://img.shields.io/badge/Cookie--Parser-E39842?style=for-the-badge" alt="Cookie-Parser">
+  <img src="https://img.shields.io/badge/Express--Validator-555555?style=for-the-badge" alt="Express-Validator">
+  <img src="https://img.shields.io/badge/Multer-333333?style=for-the-badge" alt="Multer">
+  <img src="https://img.shields.io/badge/ImageKit-00BFFF?style=for-the-badge&logo=imagekit&logoColor=white" alt="ImageKit">
+</p>
 
 ## Features
 

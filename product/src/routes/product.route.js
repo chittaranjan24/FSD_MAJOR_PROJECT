@@ -19,9 +19,6 @@ router.post('/',
 // GET /api/products/
 router.get('/', productController.getProducts);
 
-// GET /api/products/:id
-router.get('/:id', productController.getProductById);
-
 //PATCH /api/products/:id
 router.patch('/:id', 
     createAuthMiddleware(['seller']),
@@ -29,5 +26,17 @@ router.patch('/:id',
     productVelidator.updateProductValidator,
     productController.updateProduct
 );
+
+// DELETE /api/products/:id
+router.delete('/:id', 
+    createAuthMiddleware(['seller']),
+    productController.deleteProduct
+);
+
+// GET /api/products/seller
+router.get('/seller', createAuthMiddleware(['seller']), productController.getProductsBySeller);
+
+// GET /api/products/:id
+router.get('/:id', productController.getProductById);
 
 module.exports = router;
