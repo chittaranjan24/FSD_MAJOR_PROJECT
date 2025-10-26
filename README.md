@@ -1,7 +1,7 @@
 <div align="center">
-  <h1>Full-Stack Application (SUPER-MARKET) - Microservices</h1>
+  <h1>Super-Market Microservices Platform</h1>
   <p>
-    A microservices-based full-stack application with separate services for user authentication and product management.
+    <strong>Enterprise-Grade Full-Stack Application</strong> built with Node.js, Express, MongoDB, and Redis. Modular microservices for Auth, Product, Cart, Order, Payment, and AI-Buddy.
   </p>
   <p>
     <a href="https://github.com/chittaranjan24/FSD_MAJOR_PROJECT/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-ISC-blue.svg" alt="License"></a>
@@ -9,13 +9,19 @@
   </p>
 </div>
 
-## Description
+This project is a robust, scalable full-stack application architected with microservices. It features:
+- **Auth Service** for secure user management
+- **Product Service** for product CRUD and image uploads
+- **Cart Service** for shopping cart operations
+- **Order Service** for order lifecycle management
+- **Payment Service** for payment processing and verification
+- **AI-Buddy Service** for real-time socket and agent integrations
 
-This project is a complete full-stack application built with a microservices architecture. It features a secure `auth` service for user management and a `product` service for handling products. It's designed to be a scalable starting point for building complex web applications that require robust user authentication, session management, and separation of concerns.
+Designed for extensibility, security, and real-world e-commerce scenarios.
 
 ## Tech Stack
 
-### Frontend (To be determined)
+### Frontend (Coming Soon)
 <p>
   <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React">
 </p>
@@ -36,78 +42,74 @@ This project is a complete full-stack application built with a microservices arc
 <p>
   <img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white" alt="JWT">
   <img src="https://img.shields.io/badge/dotenv-ECD53F?style=for-the-badge&logo=dotenv&logoColor=black" alt="dotenv">
-    <img src="https://img.shields.io/badge/Bcrypt-4B5972?style=for-the-badge" alt="Bcrypt">
+  <img src="https://img.shields.io/badge/Bcrypt-4B5972?style=for-the-badge" alt="Bcrypt">
   <img src="https://img.shields.io/badge/Cookie--Parser-E39842?style=for-the-badge" alt="Cookie-Parser">
   <img src="https://img.shields.io/badge/Express--Validator-555555?style=for-the-badge" alt="Express-Validator">
   <img src="https://img.shields.io/badge/Multer-333333?style=for-the-badge" alt="Multer">
   <img src="https://img.shields.io/badge/ImageKit-00BFFF?style=for-the-badge&logo=imagekit&logoColor=white" alt="ImageKit">
 </p>
 
-## Features
+## Features by Service
 
 - **Auth Service:**
-    - User registration
-    - User login with JWT-based authentication
-    - Secure password hashing
-    - Session management with Redis
+    - User registration, login, logout
+    - JWT authentication & secure password hashing
+    - Session management (Redis)
+    - Address management (CRUD)
     - Input validation
 - **Product Service:**
-    - (Placeholder for) Product creation, retrieval, updating, and deletion (CRUD)
-    - (Placeholder for) Image uploads for products
+    - Product creation, retrieval, update, deletion
+    - Image uploads (ImageKit)
+    - Seller-specific product queries
+- **Cart Service:**
+    - Add, update, and view cart items
+    - Cart item validation
+- **Order Service:**
+    - Create, view, update, and cancel orders
+    - Address update for orders
+- **Payment Service:**
+    - Create and verify payments (Razorpay integration)
+- **AI-Buddy Service:**
+    - Real-time socket server and agent tools (custom integrations)
 
-## Installation & Setup
+This project consists of multiple independent microservices. Each service runs separately and communicates via REST APIs. Recommended: run each in its own terminal.
 
-This project consists of two separate services: `auth` and `product`. You need to run them independently.
+### Service Setup
 
-### Auth Service
-
-1. **Navigate to the `auth` directory:**
-   ```bash
-   cd auth
-   ```
-2. **Install dependencies:**
+For each service below, run these steps in its directory:
+1. **Install dependencies:**
    ```bash
    npm install
    ```
-3. **Create a `.env` file** in the `auth` directory and add the required environment variables (see below).
-4. **Run the server:**
+2. **Create a `.env` file** and add required environment variables (see below).
+3. **Run the server:**
    ```bash
    npm run dev
    ```
 
-### Product Service
-
-1. **Navigate to the `product` directory:**
-   ```bash
-   cd product
-   ```
-2. **Install dependencies:**
-   ```bash
-   npm install
-   ```
-3. **Create a `.env` file** in the `product` directory and add the required environment variables (see below).
-4. **Run the server:**
-   ```bash
-   npm run dev
-   ```
+#### Services:
+- `auth` (User & session management)
+- `product` (Product CRUD & images)
+- `cart` (Shopping cart)
+- `order` (Order lifecycle)
+- `payment` (Payment processing)
+- `ai-buddy` (Socket/agent integrations)
 
 ### Frontend
-
-(Instructions to be added once the frontend is developed)
+(Instructions to be added once developed)
 
 ## Environment Variables
 
-### Auth Service (`auth/.env`)
+Each service requires its own `.env` file. Example variables:
 
+**Auth Service (`auth/.env`)**
 ```
 PORT=3001
 MONGODB_URI=your_mongodb_connection_string
 REDIS_URI=your_redis_connection_string
 JWT_SECRET=your_jwt_secret
 ```
-
-### Product Service (`product/.env`)
-
+**Product Service (`product/.env`)**
 ```
 PORT=3002
 MONGODB_URI=your_mongodb_connection_string
@@ -115,53 +117,65 @@ IMAGEKIT_PUBLIC_KEY=your_imagekit_public_key
 IMAGEKIT_PRIVATE_KEY=your_imagekit_private_key
 IMAGEKIT_URL_ENDPOINT=your_imagekit_url_endpoint
 ```
+**Cart Service (`cart/.env`)**
+```
+PORT=3003
+MONGODB_URI=your_mongodb_connection_string
+```
+**Order Service (`order/.env`)**
+```
+PORT=3004
+MONGODB_URI=your_mongodb_connection_string
+```
+**Payment Service (`payment/.env`)**
+```
+PORT=3005
+MONGODB_URI=your_mongodb_connection_string
+RAZORPAY_KEY_ID=your_razorpay_key_id
+RAZORPAY_KEY_SECRET=your_razorpay_key_secret
+```
 
 ## Usage
 
-Once the backend services are running, you can use a tool like Postman or `curl` to interact with the APIs.
+Start all backend services. Use Postman, curl, or a frontend client to interact with the APIs. Each service exposes its own REST endpoints.
 
 ## API Documentation
 
 ### Auth Service
-
-#### Register a new user
-
-- **Endpoint:** `POST /api/auth/register`
-- **Request Body:**
-  ```json
-  {
-    "username": "testuser",
-    "email": "test@example.com",
-    "password": "password123"
-  }
-  ```
-- **Response:**
-  ```json
-  {
-    "message": "User registered successfully"
-  }
-  ```
-
-#### Login a user
-
-- **Endpoint:** `POST /api/auth/login`
-- **Request Body:**
-  ```json
-  {
-    "email": "test@example.com",
-    "password": "password123"
-  }
-  ```
-- **Response:** (A cookie with the JWT token will be set in the response headers)
-  ```json
-  {
-    "message": "Logged in successfully"
-  }
-  ```
+- `POST /api/auth/register` — Register new user
+- `POST /api/auth/login` — Login user
+- `GET /api/auth/me` — Get current user
+- `GET /api/auth/logout` — Logout user
+- `GET /api/auth/users/me/address` — Get user address
+- `POST /api/auth/users/me/address` — Add address
+- `DELETE /api/auth/users/me/address/:addressId` — Delete address
 
 ### Product Service
+- `POST /api/products/` — Create product (admin/seller, images supported)
+- `GET /api/products/` — List products
+- `PATCH /api/products/:id` — Update product (seller)
+- `DELETE /api/products/:id` — Delete product (seller)
+- `GET /api/products/seller` — List seller's products
+- `GET /api/products/:id` — Get product by ID
 
-(API documentation to be added)
+### Cart Service
+- `GET /api/cart` — Get user's cart
+- `POST /api/cart/items` — Add item to cart
+- `PATCH /api/cart/items/:productId` — Update cart item
+
+### Order Service
+- `POST /api/orders/` — Create order
+- `GET /api/orders/me` — Get user's orders
+- `POST /api/orders/:id/cancel` — Cancel order
+- `GET /api/orders/:id` — Get order by ID
+- `PATCH /api/orders/:id/address` — Update order address
+
+### Payment Service
+- `POST /api/payments/create/:orderId` — Create payment for order
+- `POST /api/payments/verify` — Verify payment
+
+### AI-Buddy Service
+- Real-time socket and agent endpoints (custom, see code)
 
 ## Folder Structure
 
@@ -174,17 +188,10 @@ Once the backend services are running, you can use a tool like Postman or `curl`
 │   └── src/
 │       ├── app.js
 │       ├── controllers/
-│       │   └── auth.controller.js
 │       ├── db/
-│       │   ├── db.js
-│       │   └── redis.js
 │       ├── middlewares/
-│       │   ├── auth.middleware.js
-│       │   └── validator.middleware.js
 │       ├── models/
-│       │   └── user.model.js
 │       └── routes/
-│           └── auth.route.js
 ├── product/
 │   ├── .env
 │   ├── package.json
@@ -192,47 +199,81 @@ Once the backend services are running, you can use a tool like Postman or `curl`
 │   └── src/
 │       ├── app.js
 │       ├── controllers/
-│       │   └── product.controller.js
 │       ├── db/
-│       │   └── db.js
 │       ├── middlewares/
-│       │   ├── auth.middleware.js
-│       │   └── validator.middleware.js
 │       ├── models/
-│       │   └── product.model.js
 │       ├── routes/
-│       │   └── product.route.js
 │       └── services/
-│           └── imagekit.service.js
+├── cart/
+│   ├── .env
+│   ├── package.json
+│   ├── server.js
+│   └── src/
+│       ├── app.js
+│       ├── controllers/
+│       ├── db/
+│       ├── middlewares/
+│       ├── models/
+│       └── routes/
+├── order/
+│   ├── .env
+│   ├── package.json
+│   ├── server.js
+│   └── src/
+│       ├── app.js
+│       ├── controllers/
+│       ├── db/
+│       ├── middlewares/
+│       ├── models/
+│       └── routes/
+├── payment/
+│   ├── .env
+│   ├── package.json
+│   ├── server.js
+│   └── src/
+│       ├── app.js
+│       ├── controllers/
+│       ├── db/
+│       ├── middlewares/
+│       ├── models/
+│       ├── routes/
+│       └── services/
+├── ai-buddy/
+│   ├── package.json
+│   ├── server.js
+│   └── src/
+│       ├── app.js
+│       ├── agent/
+│       └── sockets/
 └── README.md
 ```
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a pull request or open an issue.
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+We welcome contributions! To contribute:
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/YourFeature`)
+3. Commit your changes (`git commit -m 'Add YourFeature'`)
+4. Push to your branch (`git push origin feature/YourFeature`)
+5. Open a pull request
 
 ## License
 
 This project is licensed under the ISC License.
 
-## Future Improvements / Roadmap
-
-- Implement password reset functionality
-- Add social login (e.g., Google, GitHub)
-- Develop the frontend application
-- Implement inter-service communication (e.g., using a message broker like RabbitMQ or an API gateway)
-- Add unit and integration tests for both services
+## Roadmap & Future Improvements
+- Password reset functionality
+- Social login (Google, GitHub, etc.)
+- Frontend application (React)
+- Inter-service communication (RabbitMQ, API Gateway)
+- Unit and integration tests for all services
+- Advanced monitoring, logging, and CI/CD
 
 ## Acknowledgements
-
 - [Node.js](https://nodejs.org/)
 - [Express.js](https://expressjs.com/)
 - [MongoDB](https://www.mongodb.com/)
 - [Redis](https://redis.io/)
-- And all the amazing npm packages used in this project.
+- [Razorpay](https://razorpay.com/)
+- [ImageKit](https://imagekit.io/)
+- And all npm packages and open-source contributors
