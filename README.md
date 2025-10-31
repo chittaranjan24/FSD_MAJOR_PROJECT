@@ -39,6 +39,21 @@ This project implements a distributed, microservice-based architecture tailored 
 | <img src="https://img.shields.io/badge/AI--Buddy-Intelligence-black?style=flat-square&logo=openai&logoColor=white" alt="AI badge"> | **Conversational AI** | Socket-based gateway for real-time conversational tooling and operational insights. |
 | <img src="https://img.shields.io/badge/Seller%20Dashboard-Analytics-yellow?style=flat-square&logo=google-analytics&logoColor=white" alt="Seller Dashboard badge"> | **Seller Analytics** | Provides sellers with insights into their products, orders, and payments through an event-driven dashboard. |
 
+## 🧩 Service Topology & Responsibilities
+
+| Service | Default Port | Critical Dependencies | Responsibilities |
+| :--- | :--- | :--- | :--- |
+| `auth` | 3001 | MongoDB, Redis, RabbitMQ | Identity lifecycle, token issuance and validation, address book, event emission for downstream systems. |
+| `product` | 3002 | MongoDB, ImageKit, RabbitMQ | Product CRUD, media uploads, seller ownership checks, outbound catalog events. |
+| `cart` | 3003 | MongoDB | Shopping cart persistence, item validation, quantity management. |
+| `order` | 3004 | MongoDB, RabbitMQ, Auth/Cart/Product APIs | Order orchestration, state transitions, pricing aggregation, seller dashboard feeds. |
+| `payment` | 3005 | MongoDB, Razorpay, RabbitMQ | Payment intent creation, signature verification, financial event broadcasting. |
+| `ai-buddy` | 3006 | Socket.IO, LangChain, Gemini, JWT | Real-time conversational agent, operational intelligence endpoints. |
+| `notification` | 3007 | RabbitMQ, Nodemailer (SMTP) | Inbox/email notifications for auth/payment/product events. |
+| `seller-dashboard` | 3008 | MongoDB, RabbitMQ | Denormalised seller insights, realtime projections of orders/payments/users. |
+
+> ℹ️ Each process is independently deployable; ensure supporting infrastructure (MongoDB, Redis, RabbitMQ, SMTP) is configured per environment before promoting releases.
+
 ## 🏗️ Solution Architecture
 
 This platform utilizes an event-driven microservices architecture, promoting loose coupling and high scalability. Core services communicate synchronously via an API Gateway for direct client requests and asynchronously via a RabbitMQ message broker for background tasks and inter-service notifications.
@@ -296,6 +311,89 @@ npm run dev
 
 # ... and so on for all other services
 ```
+
+### 5. Suggested Boot Order & Local Ops
+
+1. **Bootstrap infrastructure**: ensure MongoDB, Redis, RabbitMQ, and SMTP sandboxes are reachable before starting any Node.js process.
+2. **Start synchronous APIs**: launch `auth`, followed by `product`, `cart`, `order`, and `payment` so cross-service HTTP calls succeed.
+3. **Start event consumers**: run `notification` and `seller-dashboard` once RabbitMQ is online to keep queues draining.
+4. **Enable conversational tooling**: start `ai-buddy` after `auth` so JWT cookie verification passes during the socket handshake.
+5. **Tail logs**: use `npm run dev | npx pino-pretty` (after adding Pino) or your preferred logger to confirm healthy inter-service traffic.
+
+> 💡 Keep ports aligned with the service topology table to avoid hard-coded URL drift. Consider `.env.development` files to override ports locally without touching production credentials.
+
+## 🔐 Configuration & Secret Management
+
+| Variable | Description | Scope |
+| :--- | :--- | :--- |
+| `NODE_ENV` | `development`, `staging`, `production` — toggles behaviour flags. | All services |
+| `PORT` | Exposed HTTP port. Ensure uniqueness per service. | All services |
+| `JWT_SECRET` | Signing key for access tokens. Rotate regularly and store in a secret manager. | auth, cart, order, payment, ai-buddy |
+| `MONGODB_URI` / `MONGODB_URL` | MongoDB connection string. Prefer unique databases per bounded context. | auth, product, cart, order, payment, notification, seller-dashboard |
+| `REDIS_*` | Host/port/password for session cache. | auth |
+| `RABBIT_URL` / `AMQP_URL` | RabbitMQ connection string for message publishing & consuming. | auth, product, payment, notification, seller-dashboard |
+| `IMAGEKIT_*` | ImageKit credentials for media uploads. | product |
+| `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET` | Razorpay integration keys. | payment |
+| `EMAIL_*` / OAuth2 tokens | SMTP credentials for outbound notifications. | notification |
+| `SOCKET_PORT` | Dedicated Socket.IO port (if split from HTTP). | ai-buddy |
+
+- **Secret storage**: Use managed secret stores (AWS Secrets Manager, Azure Key Vault, GCP Secret Manager) in production. Mount at runtime through your orchestrator.
+- **Configuration parity**: Keep `.env.example` files in sync and document when a service expects `MONGODB_URI` vs `MONGODB_URL` to prevent deployment errors.
+- **Rotation**: Automate key rotation for JWT secrets, payment credentials, and SMTP tokens; coordinate deployments to avoid outage windows.
+
+## 🚢 Production Deployment Blueprint
+
+1. **Artifact preparation**
+  - Run `npm ci --omit=dev` within each service to generate deterministic installs.
+  - Bundle source plus `package.json`/`package-lock.json` for immutable builds.
+  - Populate environment-specific `.env` files or secret references.
+
+2. **Runtime packaging**
+  - **Docker (recommended)**: build per-service images (multi-stage) and publish to a container registry (ECR/ACR/GCR/GHCR).
+  - **VM/Server**: manage processes via `pm2`, `systemd`, or Supervisor; configure log rotation and auto-restart.
+
+3. **Infrastructure provisioning**
+  - VPC/Subnets with security groups or firewall rules for service isolation.
+  - Managed MongoDB, Redis, RabbitMQ instances sized for baseline and peak traffic.
+  - Secret manager integration with CI/CD for environment injection.
+
+4. **Deployment sequencing**
+  1. Deploy shared infrastructure (databases, queues, secret store bindings).
+  2. Roll out authentication and catalog services (`auth`, `product`).
+  3. Follow with transactional APIs (`cart`, `order`, `payment`).
+  4. Bring online async processors (`notification`, `seller-dashboard`).
+  5. Enable `ai-buddy` after JWT issuance is live.
+  6. Run smoke tests (`/api/auth/login`, `/api/products`, `/api/orders/me`).
+
+5. **Post-deploy validation**
+  - Seed admin users, sample catalog entries, and check queue backlogs.
+  - Validate webhook/payment callbacks in a staging environment before production cutover.
+  - Configure monitoring dashboards and alert thresholds.
+
+## 🩺 Observability & Operations
+
+- **Logging**: Adopt structured logging (e.g., Pino) and include correlation IDs (`X-Request-ID`) to trace cross-service flows.
+- **Metrics**: Export Prometheus-compatible metrics or integrate with a hosted metrics solution to track request latency, queue depth, and payment success rate.
+- **Tracing**: Instrument critical flows (register → checkout → pay) with OpenTelemetry to detect regressions quickly.
+- **Health/Readiness**: Surface `/healthz` and `/readyz` endpoints with checks to MongoDB, Redis, RabbitMQ, and external APIs.
+- **Alerting**: Define SLOs/SLIs (auth error rate, payment conversion) and trigger alerts when thresholds breach.
+
+## 🛡️ Security Hardening Guide
+
+- Enforce HTTPS and HSTS; terminate TLS at a load balancer or API gateway.
+- Set `Secure`, `HttpOnly`, and `SameSite` flags on authentication cookies.
+- Apply rate limiting on auth endpoints and sensitive mutation routes.
+- Validate request payloads with `express-validator`/`zod` and sanitise inputs to avoid injection attacks.
+- Run dependency scans (`npm audit`, Snyk) in CI; patch high-severity issues promptly.
+- Implement role-based access enforcement in `order`, `product`, and dashboard contexts.
+- Enable audit logging for administrative actions and finance-related events.
+
+## 💾 Backup & Recovery Planning
+
+- Schedule automated MongoDB snapshots (and test restores quarterly).
+- Configure RabbitMQ durable queues and mirrored policies for high availability.
+- Back up Redis data if session persistence is required between restarts.
+- Document disaster recovery RTO/RPO targets and run tabletop exercises to validate procedures.
 
 ## 🧪 Testing Strategy
 
