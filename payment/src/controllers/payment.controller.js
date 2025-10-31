@@ -34,6 +34,17 @@ async function createPayment(req, res) {
             }
         });
 
+        await Promise.all([
+            publishToQueue('PAYMENT_SELLER_DASHBOARD.PAYMENT_CREATED', payment),
+            publishToQueue("PAYMENT_NOTIFICATION.PAYMENT_INITIATED", {
+            email: req.user.email,
+            orderId: orderId,
+            amount: payment.price.amount / 100,
+            currency: payment.price.currency,
+            username: req.user.username,
+            })
+        ]);
+
         return res.status(201).json({ 
             message: "Payment created successfully",
             payment
@@ -83,7 +94,7 @@ async function verifyPayment(req, res) {
                     currency: payment.price.currency,
                     fullName: req.user.fullName
                 }),
-                publishToQueue('PAYMENT_SELLER_DASHBOARD.PAYMENT_CREATED', payment)
+                publishToQueue('PAYMENT_SELLER_DASHBOARD.PAYMENT_UPDATED', payment)
             ]);
 
             res.status(200).json({ 
