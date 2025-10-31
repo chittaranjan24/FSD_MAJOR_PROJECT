@@ -2,52 +2,45 @@
   <img src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1600&q=80" alt="Modern retail operations" width="900">
   <h1>Super-Market Microservices Platform</h1>
   <p>
-    <strong>Enterprise-Grade Retail Commerce Suite</strong> delivering modular services for authentication, catalog, cart, ordering, payments, and AI enablement.
+    <strong>An Enterprise-Grade, Cloud-Native Retail Commerce Suite</strong>
   </p>
   <p>
-    <a href="https://github.com/chittaranjan24/FSD_MAJOR_PROJECT/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-ISC-blue.svg" alt="License"></a>
-    <a href="https://www.linkedin.com/in/chittaranjan-shit2/"><img src="https://img.shields.io/badge/LinkedIn-Chittaranjan-blue?style=flat-square&logo=linkedin" alt="LinkedIn"></a>
+    This platform delivers a complete, modular ecosystem for modern retail operations, including services for authentication, product catalog management, shopping cart, order processing, payments, and an AI-powered assistant. It is architected for scalability, resilience, and rapid feature development.
+  </p>
+  <p>
+    <a href="https://github.com/chittaranjan24/FSD_MAJOR_PROJECT/actions"><img src="https://img.shields.io/github/actions/workflow/status/chittaranjan24/FSD_MAJOR_PROJECT/node.js.yml?branch=main&style=for-the-badge" alt="Build Status"></a>
+    <a href="https://github.com/chittaranjan24/FSD_MAJOR_PROJECT/blob/main/LICENSE"><img src="https://img.shields.io/github/license/chittaranjan24/FSD_MAJOR_PROJECT?style=for-the-badge" alt="License"></a>
+    <a href="https://github.com/chittaranjan24/FSD_MAJOR_PROJECT/graphs/contributors"><img src="https://img.shields.io/github/contributors/chittaranjan24/FSD_MAJOR_PROJECT?style=for-the-badge" alt="Contributors"></a>
+    <a href="https://www.linkedin.com/in/chittaranjan-shit2/"><img src="https://img.shields.io/badge/LinkedIn-Chittaranjan-blue?style=for-the-badge&logo=linkedin" alt="LinkedIn"></a>
   </p>
 </div>
 
-<div align="center">
-  <table>
-    <tr>
-      <td><strong>Customers</strong><br>Personalized journeys, secure identity, and consistent cart experiences.</td>
-      <td><strong>Operations</strong><br>Service isolation for streamlined deployments and fault containment.</td>
-      <td><strong>Revenue</strong><br>Faster product launches, payment agility, and data-driven automation.</td>
-    </tr>
-  </table>
-</div>
+## 🚀 Executive Overview
 
----
+This project implements a distributed, microservice-based architecture tailored for omnichannel retail workloads. By decoupling critical business domains, the platform achieves superior fault isolation, independent scaling, and streamlined deployment cycles. Its event-driven, API-first design ensures that product, cart, order, and payment flows are both resilient and ready for future innovation.
 
-## Executive Overview
-
-- Microservice topology designed for omnichannel retail workloads
-- Event-ready APIs that scale independently across product, cart, order, and payment flows
-- Authentication-first security posture with Redis-backed session hardening
-- AI-Buddy assistant to augment customer support and operational intelligence
+- **Authentication-First Security**: Hardened security posture with JWT and Redis-backed session management.
+- **AI-Powered Augmentation**: The "AI-Buddy" assistant enhances customer support and provides operational intelligence.
+- **Developer-Centric**: Each service is a standalone Node.js application, promoting a clean and manageable development experience.
 
 ![Platform Collaboration](https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=80)
-
 *Photography courtesy of Unsplash creators supporting open knowledge sharing.*
 
-## Platform Storyboard
+## ✨ Features & Capabilities
 
-| Module | Business Outcome | Delivery Assets |
-| --- | --- | --- |
-| <img src="https://img.shields.io/badge/Auth%20Service-Identity-blue?style=flat-square&logo=auth0&logoColor=white" alt="Auth badge"> | Reduce onboarding friction with resilient JWT flows and address book automation | REST APIs, Redis cache, validation middleware |
-| <img src="https://img.shields.io/badge/Product%20Service-Catalog-darkgreen?style=flat-square&logo=producthunt&logoColor=white" alt="Product badge"> | Accelerate merchandizing through ImageKit powered asset delivery | CRUD controllers, media services, seller filters |
-| <img src="https://img.shields.io/badge/Cart%20Service-Basket-orange?style=flat-square&logo=shopify&logoColor=white" alt="Cart badge"> | Maintain live baskets with inventory-aware validation | State-aware middleware, atomic updates |
-| <img src="https://img.shields.io/badge/Order%20Service-Fulfillment-navy?style=flat-square&logo=adobecommerce&logoColor=white" alt="Order badge"> | Standardize order orchestration from creation to cancellation | Lifecycle APIs, address mutation endpoints |
-| <img src="https://img.shields.io/badge/Payment%20Service-Fintech-purple?style=flat-square&logo=razorpay&logoColor=white" alt="Payment badge"> | Secure capture and verification with Razorpay integration | Signature verification, transactional audit logs |
-| <img src="https://img.shields.io/badge/Notification%20Service-Comms-cyan?style=flat-square&logo=sendinblue&logoColor=white" alt="Notification badge"> | Deliver timely order and payment confirmations via email | Event-driven listeners, Nodemailer integration |
-| <img src="https://img.shields.io/badge/AI--Buddy-Intelligence-black?style=flat-square&logo=openai&logoColor=white" alt="AI badge"> | Deploy conversational tooling for support and insights | Socket gateway, agent toolkits, extensible adapters |
+| Module | Business Outcome | Key Features |
+| :--- | :--- | :--- |
+| <img src="https://img.shields.io/badge/Auth%20Service-Identity-blue?style=flat-square&logo=auth0&logoColor=white" alt="Auth badge"> | **Secure Identity & Access** | Resilient JWT flows, Redis-backed sessions, address book management, password encryption. |
+| <img src="https://img.shields.io/badge/Product%20Service-Catalog-darkgreen?style=flat-square&logo=producthunt&logoColor=white" alt="Product badge"> | **Dynamic Product Catalogs** | CRUD operations, ImageKit-powered media delivery, seller-specific product filtering. |
+| <img src="https://img.shields.io/badge/Cart%20Service-Basket-orange?style=flat-square&logo=shopify&logoColor=white" alt="Cart badge"> | **Persistent Shopping Carts** | State-aware middleware, atomic cart updates, inventory-aware validation. |
+| <img src="https://img.shields.io/badge/Order%20Service-Fulfillment-navy?style=flat-square&logo=adobecommerce&logoColor=white" alt="Order badge"> | **Orchestrated Order Management** | End-to-end order lifecycle APIs (creation, cancellation), address mutation. |
+| <img src="https://img.shields.io/badge/Payment%20Service-Fintech-purple?style=flat-square&logo=razorpay&logoColor=white" alt="Payment badge"> | **Reliable Payment Processing** | Secure payment capture and verification via Razorpay, signature validation, audit logs. |
+| <img src="https://img.shields.io/badge/Notification%20Service-Comms-cyan?style=flat-square&logo=sendinblue&logoColor=white" alt="Notification badge"> | **Automated Communications** | Event-driven email notifications for order/payment events via RabbitMQ and Nodemailer. |
+| <img src="https://img.shields.io/badge/AI--Buddy-Intelligence-black?style=flat-square&logo=openai&logoColor=white" alt="AI badge"> | **Conversational AI** | Socket-based gateway for real-time conversational tooling and operational insights. |
 
-## Solution Architecture
+## 🏗️ Solution Architecture
 
-This platform uses an event-driven microservices architecture, facilitating loose coupling and high scalability. Core services communicate synchronously via a gateway for direct client requests and asynchronously via a RabbitMQ message broker for background tasks and inter-service notifications.
+This platform utilizes an event-driven microservices architecture, promoting loose coupling and high scalability. Core services communicate synchronously via an API Gateway for direct client requests and asynchronously via a RabbitMQ message broker for background tasks and inter-service notifications.
 
 ```mermaid
 graph TD
@@ -132,12 +125,7 @@ graph TD
   NotificationSvc --> Metrics
 ```
 
-## Technology Stack
-
-### Frontend (Coming Soon)
-<p>
-  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React">
-</p>
+## 🛠️ Technology Stack
 
 ### Backend
 <p>
@@ -157,7 +145,7 @@ graph TD
   <img src="https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white" alt="Redis">
 </p>
 
-### Messaging
+### Messaging & Real-Time
 <p>
   <img src="https://img.shields.io/badge/RabbitMQ-FF6600?style=for-the-badge&logo=rabbitmq&logoColor=white" alt="RabbitMQ">
   <img src="https://img.shields.io/badge/Socket.io-010101?style=for-the-badge&logo=socketdotio&logoColor=white" alt="Socket.io">
@@ -181,50 +169,59 @@ graph TD
   <img src="https://img.shields.io/badge/ImageKit-00BFFF?style=for-the-badge&logo=imagekit&logoColor=white" alt="ImageKit">
 </p>
 
-## Capability Breakdown
+## 📋 Prerequisites
 
-- **Auth Service** secures user identities, sessions, and address books with Redis-backed tokens
-- **Product Service** orchestrates catalog CRUD, media uploads, and seller segmentation
-- **Cart Service** maintains active carts with policy-driven validation and adjustments
-- **Order Service** governs order lifecycles, change requests, and fulfillment status
-- **Payment Service** captures and verifies Razorpay transactions with signature validation.
-- **Notification Service** consumes events from the message broker to send transactional emails for order confirmations and payment receipts.
-- **AI-Buddy Service** powers socket-based automation and assistant experiences for the platform.
+Before you begin, ensure you have the following installed:
+- **[Node.js](https://nodejs.org/en/)**: Version 18.x or higher
+- **[MongoDB](https://www.mongodb.com/try/download/community)**: A running instance (local or cloud)
+- **[Redis](https://redis.io/docs/getting-started/)**: A running instance for caching and session management
+- **[RabbitMQ](https://www.rabbitmq.com/download.html)**: A running instance for event-driven messaging
 
-## Operating Playbook
+## 🚀 Getting Started
 
-This project is composed of independent Node.js services. Run each service in its own terminal for the best developer experience and resilience testing.
+This project is a monorepo containing independent Node.js services. For the best development experience, run each service in its own terminal.
 
-### Service Bootstrapping
+### 1. Clone the Repository
+```bash
+git clone https://github.com/chittaranjan24/FSD_MAJOR_PROJECT.git
+cd FSD_MAJOR_PROJECT
+```
 
-1. **Install dependencies**
-   ```bash
-   npm install
-   ```
-2. **Add configuration** by creating a dedicated `.env` file per service (see matrix below).
-3. **Run the service**
-   ```bash
-   npm run dev
-   ```
+### 2. Install Dependencies
+Navigate into each service directory and install its dependencies.
 
-| Service | Port (default) | Key Environment Variables |
-| --- | --- | --- |
-| Auth | 3001 | `MONGODB_URI`, `REDIS_URI`, `JWT_SECRET` |
-| Product | 3002 | `MONGODB_URI`, `IMAGEKIT_PUBLIC_KEY`, `IMAGEKIT_PRIVATE_KEY`, `IMAGEKIT_URL_ENDPOINT` |
-| Cart | 3003 | `MONGODB_URI` |
-| Order | 3004 | `MONGODB_URI` |
-| Payment | 3005 | `MONGODB_URI`, `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET`, `AMQP_URL` |
-| Notification | 3007 | `MONGODB_URI`, `AMQP_URL`, `EMAIL_HOST`, `EMAIL_PORT`, `EMAIL_USER`, `EMAIL_PASS` |
-| AI-Buddy | 3006 (configurable) | `MONGODB_URI`, `SOCKET_PORT` |
+```bash
+# Example for the Auth service
+cd auth
+npm install
 
-### Environment File Templates
+# Repeat for all other services (product, cart, etc.)
+```
+
+### 3. Configure Environment Variables
+Each service requires its own `.env` file for configuration. Create a `.env` file in the root of each service directory (e.g., `auth/.env`) and populate it with the necessary credentials and endpoints.
+
+| Service | Port | Key Environment Variables |
+| :--- | :--- | :--- |
+| **Auth** | 3001 | `MONGODB_URI`, `REDIS_URI`, `JWT_SECRET` |
+| **Product** | 3002 | `MONGODB_URI`, `IMAGEKIT_PUBLIC_KEY`, `IMAGEKIT_PRIVATE_KEY`, `IMAGEKIT_URL_ENDPOINT` |
+| **Cart** | 3003 | `MONGODB_URI` |
+| **Order** | 3004 | `MONGODB_URI` |
+| **Payment** | 3005 | `MONGODB_URI`, `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET`, `AMQP_URL` |
+| **Notification** | 3007 | `MONGODB_URI`, `AMQP_URL`, `EMAIL_HOST`, `EMAIL_PORT`, `EMAIL_USER`, `EMAIL_PASS` |
+| **AI-Buddy** | 3006 | `MONGODB_URI`, `SOCKET_PORT` |
+
+#### `.env` File Templates
+
+<details>
+<summary>Click to view .env templates</summary>
 
 **Auth Service (`auth/.env`)**
 ```
 PORT=3001
 MONGODB_URI=your_mongodb_connection_string
 REDIS_URI=your_redis_connection_string
-JWT_SECRET=your_jwt_secret
+JWT_SECRET=your_super_secret_jwt_key
 ```
 
 **Product Service (`product/.env`)**
@@ -274,158 +271,126 @@ PORT=3006
 MONGODB_URI=your_mongodb_connection_string
 SOCKET_PORT=4000
 ```
+</details>
 
-## API Surface
+### 4. Run the Services
+Start each service in a separate terminal window.
 
-### Auth Service
-- `POST /api/auth/register` — Register new user
-- `POST /api/auth/login` — Login user
-- `GET /api/auth/me` — Get current user
-- `GET /api/auth/logout` — Logout user
-- `GET /api/auth/users/me/address` — Get user address
-- `POST /api/auth/users/me/address` — Add address
-- `DELETE /api/auth/users/me/address/:addressId` — Delete address
+```bash
+# In a new terminal, for the Auth service
+cd auth
+npm run dev
 
-### Product Service
-- `POST /api/products/` — Create product (admin/seller, images supported)
-- `GET /api/products/` — List products
-- `PATCH /api/products/:id` — Update product (seller)
-- `DELETE /api/products/:id` — Delete product (seller)
-- `GET /api/products/seller` — List seller's products
-- `GET /api/products/:id` — Get product by ID
+# In another terminal, for the Product service
+cd product
+npm run dev
 
-### Cart Service
-- `GET /api/cart` — Get user's cart
-- `POST /api/cart/items` — Add item to cart
-- `PATCH /api/cart/items/:productId` — Update cart item
-
-### Order Service
-- `POST /api/orders/` — Create order
-- `GET /api/orders/me` — Get user's orders
-- `POST /api/orders/:id/cancel` — Cancel order
-- `GET /api/orders/:id` — Get order by ID
-- `PATCH /api/orders/:id/address` — Update order address
-
-### Payment Service
-- `POST /api/payments/create/:orderId` — Create payment for order
-- `POST /api/payments/verify` — Verify payment
-
-### Notification Service
-- This service has no public API endpoints. It listens to events from the message broker (RabbitMQ) to trigger email notifications.
-
-### AI-Buddy Service
-- Socket gateway and agent endpoints for conversational tooling (see service code)
-
-## Repository Topology
-
-```
-.
-├── auth/
-│   ├── package.json
-│   ├── server.js
-│   └── src/
-│       ├── app.js
-│       ├── controllers/
-│       ├── db/
-│       ├── middlewares/
-│       ├── models/
-│       └── routes/
-├── product/
-│   ├── package.json
-│   ├── server.js
-│   └── src/
-│       ├── app.js
-│       ├── controllers/
-│       ├── db/
-│       ├── middlewares/
-│       ├── models/
-│       ├── routes/
-│       └── services/
-├── cart/
-│   ├── package.json
-│   ├── server.js
-│   └── src/
-│       ├── app.js
-│       ├── controllers/
-│       ├── db/
-│       ├── middlewares/
-│       ├── models/
-│       └── routes/
-├── order/
-│   ├── package.json
-│   ├── server.js
-│   └── src/
-│       ├── app.js
-│       ├── controllers/
-│       ├── db/
-│       ├── middlewares/
-│       ├── models/
-│       └── routes/
-├── payment/
-│   ├── package.json
-│   ├── server.js
-│   └── src/
-│       ├── app.js
-│       ├── controllers/
-│       ├── db/
-│       ├── middlewares/
-│       ├── models/
-│       ├── routes/
-│       └── services/
-├── ai-buddy/
-│   ├── package.json
-│   ├── server.js
-│   └── src/
-│       ├── app.js
-│       ├── agent/
-│       └── sockets/
-└── README.md
+# ... and so on for all other services
 ```
 
-## Delivery Lifecycle
+## 🧪 Testing Strategy
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/YourFeature`)
-3. Commit your changes (`git commit -m "Add YourFeature"`)
-4. Push to your branch (`git push origin feature/YourFeature`)
-5. Open a pull request for review
+The `auth` service includes a comprehensive test suite using **Jest** and **Supertest**, establishing a pattern for ensuring service reliability and correctness.
 
-## License
-
-This project is licensed under the ISC License.
-
-## Roadmap
-
-- Password reset and MFA enrollment
-- Social login providers (Google, GitHub, more)
-- React storefront frontend
-- Inter-service messaging via RabbitMQ or Kafka
-- Observability stack (OpenTelemetry, Grafana)
-- CI/CD automation with quality gates
-
-## Acknowledgements
-
-- [Node.js](https://nodejs.org/)
-- [Express.js](https://expressjs.com/)
-- [MongoDB](https://www.mongodb.com/)
-- [Redis](https://redis.io/)
-- [Razorpay](https://razorpay.com/)
-- [ImageKit](https://imagekit.io/)
-- [Unsplash](https://unsplash.com/) photographers for inspirational imagery
-- Open-source maintainers powering this ecosystem
-
-## Testing Strategy
-
-The `auth` service includes a comprehensive test suite using **Jest** and **Supertest**. This establishes a pattern for ensuring service reliability and correctness.
-
-- **Unit & Integration Tests**: Located in the `__tests__` directory.
+- **Unit & Integration Tests**: Located in the `__tests__` directory of the `auth` service.
 - **In-Memory Databases**: Uses `mongodb-memory-server` and `ioredis-mock` to run tests without external database dependencies, ensuring fast and isolated test execution.
-- **Run Tests**:
+- **How to Run Tests**:
   ```bash
   # Navigate to the auth service directory
   cd auth
   # Run all tests
   npm test
   ```
+This testing model is designed to be replicated across all microservices to achieve enterprise-grade stability.
 
-This testing model should be expanded across all other microservices to ensure enterprise-grade stability.
+## 📖 API Endpoints
+
+<details>
+<summary>Click to view API Endpoints</summary>
+
+### Auth Service
+- `POST /api/auth/register` — Register a new user.
+- `POST /api/auth/login` — Log in a user and receive a JWT.
+- `GET /api/auth/me` — Get the profile of the currently authenticated user.
+- `GET /api/auth/logout` — Log out the user.
+- `GET /api/auth/users/me/address` — Get the user's saved addresses.
+- `POST /api/auth/users/me/address` — Add a new address for the user.
+- `DELETE /api/auth/users/me/address/:addressId` — Delete a specific address.
+
+### Product Service
+- `POST /api/products/` — Create a new product (admin/seller only, supports image uploads).
+- `GET /api/products/` — List all available products with filtering and pagination.
+- `PATCH /api/products/:id` — Update an existing product (seller only).
+- `DELETE /api/products/:id` — Delete a product (seller only).
+- `GET /api/products/seller` — List all products belonging to the authenticated seller.
+- `GET /api/products/:id` — Get details of a single product by its ID.
+
+### Cart Service
+- `GET /api/cart` — Retrieve the contents of the user's shopping cart.
+- `POST /api/cart/items` — Add a new item to the cart.
+- `PATCH /api/cart/items/:productId` — Update the quantity of an item in the cart.
+
+### Order Service
+- `POST /api/orders/` — Create a new order from the user's cart.
+- `GET /api/orders/me` — Get a list of the user's past orders.
+- `POST /api/orders/:id/cancel` — Cancel an existing order.
+- `GET /api/orders/:id` — Get details of a specific order by its ID.
+- `PATCH /api/orders/:id/address` — Update the shipping address for an order.
+
+### Payment Service
+- `POST /api/payments/create/:orderId` — Create a payment intent for a specific order.
+- `POST /api/payments/verify` — Verify the payment signature from Razorpay.
+
+### Notification & AI-Buddy Services
+These services do not expose public REST APIs. The Notification service listens to RabbitMQ events, and the AI-Buddy service communicates over a Socket.IO connection.
+
+</details>
+
+## 📁 Repository Structure
+
+```
+.
+├── auth/         # Handles user identity, authentication, and authorization
+├── product/      # Manages product catalog, inventory, and seller information
+├── cart/         # Manages shopping cart state and logic
+├── order/        # Orchestrates order creation, tracking, and fulfillment
+├── payment/      # Integrates with payment gateways (Razorpay)
+├── notification/ # Sends email/SMS notifications based on events
+├── ai-buddy/     # Provides AI-powered assistant features
+└── README.md
+```
+
+## 🤝 Contributing
+
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+1.  Fork the Project
+2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3.  Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4.  Push to the Branch (`git push origin feature/AmazingFeature`)
+5.  Open a Pull Request
+
+## 📜 License
+
+This project is licensed under the ISC License. See the `LICENSE` file for more information.
+
+## 🗺️ Roadmap
+
+- [ ] **Frontend Storefront**: Develop a React-based frontend to consume the microservices.
+- [ ] **Social Logins**: Implement OAuth providers like Google and GitHub in the Auth service.
+- [ ] **Enhanced Observability**: Integrate a full observability stack (e.g., OpenTelemetry, Grafana, Prometheus).
+- [ ] **CI/CD Automation**: Build robust CI/CD pipelines with automated testing and quality gates.
+- [ ] **Containerization**: Dockerize all services and create Docker Compose configurations for easier setup.
+- [ ] **Kubernetes Deployment**: Develop Helm charts for deploying the platform to a Kubernetes cluster.
+
+## 🙏 Acknowledgements
+
+- [Node.js](https://nodejs.org/)
+- [Express.js](https://expressjs.com/)
+- [MongoDB](https://www.mongodb.com/)
+- [Redis](https://redis.io/)
+- [RabbitMQ](https://www.rabbitmq.com/)
+- [Razorpay](https://razorpay.com/)
+- [ImageKit](https://imagekit.io/)
+- [Unsplash](https://unsplash.com/) for the inspirational imagery.
+- All the open-source maintainers whose work makes projects like this possible.
