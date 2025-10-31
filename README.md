@@ -42,21 +42,24 @@
 | <img src="https://img.shields.io/badge/Cart%20Service-Basket-orange?style=flat-square&logo=shopify&logoColor=white" alt="Cart badge"> | Maintain live baskets with inventory-aware validation | State-aware middleware, atomic updates |
 | <img src="https://img.shields.io/badge/Order%20Service-Fulfillment-navy?style=flat-square&logo=adobecommerce&logoColor=white" alt="Order badge"> | Standardize order orchestration from creation to cancellation | Lifecycle APIs, address mutation endpoints |
 | <img src="https://img.shields.io/badge/Payment%20Service-Fintech-purple?style=flat-square&logo=razorpay&logoColor=white" alt="Payment badge"> | Secure capture and verification with Razorpay integration | Signature verification, transactional audit logs |
+| <img src="https://img.shields.io/badge/Notification%20Service-Comms-cyan?style=flat-square&logo=sendinblue&logoColor=white" alt="Notification badge"> | Deliver timely order and payment confirmations via email | Event-driven listeners, Nodemailer integration |
 | <img src="https://img.shields.io/badge/AI--Buddy-Intelligence-black?style=flat-square&logo=openai&logoColor=white" alt="AI badge"> | Deploy conversational tooling for support and insights | Socket gateway, agent toolkits, extensible adapters |
 
 ## Solution Architecture
 
+This platform uses an event-driven microservices architecture, facilitating loose coupling and high scalability. Core services communicate synchronously via a gateway for direct client requests and asynchronously via a RabbitMQ message broker for background tasks and inter-service notifications.
+
 ```mermaid
-flowchart LR
+graph TD
   subgraph Client Channels
     Web[Web Frontend]
     Mobile[Mobile App]
     Ops[Ops Console]
   end
 
-  Web --> GW(API Gateway)
-  Mobile --> GW
-  Ops --> GW
+  subgraph API Gateway
+    GW(API Gateway)
+  end
 
   subgraph Core Services
     AuthSvc[Auth Service]
@@ -65,7 +68,30 @@ flowchart LR
     OrderSvc[Order Service]
     PaymentSvc[Payment Service]
     AIBuddy[AI-Buddy Service]
+    NotificationSvc[Notification Service]
   end
+
+  subgraph Message Broker
+    Broker[(RabbitMQ)]
+  end
+
+  subgraph Data & External Services
+    Redis[(Redis Cache)]
+    Mongo[(MongoDB Cluster)]
+    Razorpay[(Razorpay API)]
+    ImageKit[(ImageKit CDN)]
+    Socket[(Socket.IO)]
+  end
+
+  subgraph Observability
+    Logs[Structured Logs]
+    Metrics[Service Metrics]
+  end
+
+  %% Connections
+  Web --> GW
+  Mobile --> GW
+  Ops --> GW
 
   GW --> AuthSvc
   GW --> ProductSvc
@@ -74,19 +100,20 @@ flowchart LR
   GW --> PaymentSvc
   GW --> AIBuddy
 
-  AuthSvc --> Redis[(Redis Cache)]
-  ProductSvc --> Mongo[(MongoDB Cluster)]
+  AuthSvc --- Broker
+  PaymentSvc --- Broker
+  Broker --> NotificationSvc
+
+  AuthSvc --> Redis
+  ProductSvc --> Mongo
   CartSvc --> Mongo
   OrderSvc --> Mongo
   PaymentSvc --> Mongo
-  PaymentSvc --> Razorpay[(Razorpay API)]
-  ProductSvc --> ImageKit[(ImageKit CDN)]
-  AIBuddy --> Socket[(Socket Server)]
+  NotificationSvc --> Mongo
 
-  subgraph Observability
-    Logs[Structured Logs]
-    Metrics[Service Metrics]
-  end
+  PaymentSvc --> Razorpay
+  ProductSvc --> ImageKit
+  AIBuddy --> Socket
 
   Core Services --> Logs
   Core Services --> Metrics
@@ -105,15 +132,34 @@ flowchart LR
   <img src="https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white" alt="Express.js">
 </p>
 
-### Database
+### AI & Machine Learning
+<p>
+  <img src="https://img.shields.io/badge/LangChain-8A2BE2?style=for-the-badge&logo=langchain&logoColor=white" alt="LangChain">
+  <img src="https://img.shields.io/badge/Google%20Gemini-4285F4?style=for-the-badge&logo=google&logoColor=white" alt="Google Gemini">
+</p>
+
+### Database & Caching
 <p>
   <img src="https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB">
   <img src="https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white" alt="Redis">
 </p>
 
+### Messaging
+<p>
+  <img src="https://img.shields.io/badge/RabbitMQ-FF6600?style=for-the-badge&logo=rabbitmq&logoColor=white" alt="RabbitMQ">
+  <img src="https://img.shields.io/badge/Socket.io-010101?style=for-the-badge&logo=socketdotio&logoColor=white" alt="Socket.io">
+</p>
+
+### Testing
+<p>
+  <img src="https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=white" alt="Jest">
+  <img src="https://img.shields.io/badge/Supertest-323335?style=for-the-badge" alt="Supertest">
+</p>
+
 ### Tooling & Integrations
 <p>
   <img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white" alt="JWT">
+  <img src="https://img.shields.io/badge/Nodemailer-44A6D9?style=for-the-badge" alt="Nodemailer">
   <img src="https://img.shields.io/badge/dotenv-ECD53F?style=for-the-badge&logo=dotenv&logoColor=black" alt="dotenv">
   <img src="https://img.shields.io/badge/Bcrypt-4B5972?style=for-the-badge" alt="Bcrypt">
   <img src="https://img.shields.io/badge/Cookie--Parser-E39842?style=for-the-badge" alt="Cookie-Parser">
@@ -128,8 +174,9 @@ flowchart LR
 - **Product Service** orchestrates catalog CRUD, media uploads, and seller segmentation
 - **Cart Service** maintains active carts with policy-driven validation and adjustments
 - **Order Service** governs order lifecycles, change requests, and fulfillment status
-- **Payment Service** captures and verifies Razorpay transactions with signature validation
-- **AI-Buddy Service** powers socket-based automation and assistant experiences for the platform
+- **Payment Service** captures and verifies Razorpay transactions with signature validation.
+- **Notification Service** consumes events from the message broker to send transactional emails for order confirmations and payment receipts.
+- **AI-Buddy Service** powers socket-based automation and assistant experiences for the platform.
 
 ## Operating Playbook
 
@@ -153,7 +200,8 @@ This project is composed of independent Node.js services. Run each service in it
 | Product | 3002 | `MONGODB_URI`, `IMAGEKIT_PUBLIC_KEY`, `IMAGEKIT_PRIVATE_KEY`, `IMAGEKIT_URL_ENDPOINT` |
 | Cart | 3003 | `MONGODB_URI` |
 | Order | 3004 | `MONGODB_URI` |
-| Payment | 3005 | `MONGODB_URI`, `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET` |
+| Payment | 3005 | `MONGODB_URI`, `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET`, `AMQP_URL` |
+| Notification | 3007 | `MONGODB_URI`, `AMQP_URL`, `EMAIL_HOST`, `EMAIL_PORT`, `EMAIL_USER`, `EMAIL_PASS` |
 | AI-Buddy | 3006 (configurable) | `MONGODB_URI`, `SOCKET_PORT` |
 
 ### Environment File Templates
@@ -193,6 +241,18 @@ PORT=3005
 MONGODB_URI=your_mongodb_connection_string
 RAZORPAY_KEY_ID=your_razorpay_key_id
 RAZORPAY_KEY_SECRET=your_razorpay_key_secret
+AMQP_URL=your_rabbitmq_connection_string
+```
+
+**Notification Service (`notification/.env`)**
+```
+PORT=3007
+MONGODB_URI=your_mongodb_connection_string
+AMQP_URL=your_rabbitmq_connection_string
+EMAIL_HOST=your_smtp_host
+EMAIL_PORT=your_smtp_port
+EMAIL_USER=your_smtp_username
+EMAIL_PASS=your_smtp_password
 ```
 
 **AI-Buddy Service (`ai-buddy/.env`)**
@@ -236,6 +296,9 @@ SOCKET_PORT=4000
 ### Payment Service
 - `POST /api/payments/create/:orderId` — Create payment for order
 - `POST /api/payments/verify` — Verify payment
+
+### Notification Service
+- This service has no public API endpoints. It listens to events from the message broker (RabbitMQ) to trigger email notifications.
 
 ### AI-Buddy Service
 - Socket gateway and agent endpoints for conversational tooling (see service code)
@@ -337,3 +400,19 @@ This project is licensed under the ISC License.
 - [ImageKit](https://imagekit.io/)
 - [Unsplash](https://unsplash.com/) photographers for inspirational imagery
 - Open-source maintainers powering this ecosystem
+
+## Testing Strategy
+
+The `auth` service includes a comprehensive test suite using **Jest** and **Supertest**. This establishes a pattern for ensuring service reliability and correctness.
+
+- **Unit & Integration Tests**: Located in the `__tests__` directory.
+- **In-Memory Databases**: Uses `mongodb-memory-server` and `ioredis-mock` to run tests without external database dependencies, ensuring fast and isolated test execution.
+- **Run Tests**:
+  ```bash
+  # Navigate to the auth service directory
+  cd auth
+  # Run all tests
+  npm test
+  ```
+
+This testing model should be expanded across all other microservices to ensure enterprise-grade stability.
