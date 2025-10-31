@@ -100,8 +100,8 @@ graph TD
   GW --> PaymentSvc
   GW --> AIBuddy
 
-  AuthSvc --- Broker
-  PaymentSvc --- Broker
+  AuthSvc -.-> Broker
+  PaymentSvc -.-> Broker
   Broker --> NotificationSvc
 
   AuthSvc --> Redis
@@ -115,8 +115,21 @@ graph TD
   ProductSvc --> ImageKit
   AIBuddy --> Socket
 
-  Core Services --> Logs
-  Core Services --> Metrics
+  AuthSvc --> Logs
+  ProductSvc --> Logs
+  CartSvc --> Logs
+  OrderSvc --> Logs
+  PaymentSvc --> Logs
+  AIBuddy --> Logs
+  NotificationSvc --> Logs
+
+  AuthSvc --> Metrics
+  ProductSvc --> Metrics
+  CartSvc --> Metrics
+  OrderSvc --> Metrics
+  PaymentSvc --> Metrics
+  AIBuddy --> Metrics
+  NotificationSvc --> Metrics
 ```
 
 ## Technology Stack
