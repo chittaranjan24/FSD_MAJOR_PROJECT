@@ -4,7 +4,6 @@ const connectDb = require('./src/db/db');
 const {connect} = require("./src/broker/broker");
 
 connect();
-
 connectDb()
 
 app.listen(process.env.PORT, () => {

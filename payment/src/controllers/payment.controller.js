@@ -74,14 +74,17 @@ async function verifyPayment(req, res) {
 
             await payment.save();
 
-            await publishToQueue('PAYMENT_NOTIFICATION.PAYMENT_COMPLETED', {
-                email: req.user.email,
-                paymentId: payment.paymentId,
-                orderId: payment.order,
-                amount: payment.price.amount / 100,
-                currency: payment.price.currency,
-                fullName: req.user.fullName
-            });
+            await Promise.all([
+                publishToQueue('PAYMENT_NOTIFICATION.PAYMENT_COMPLETED', {
+                    email: req.user.email,
+                    paymentId: payment.paymentId,
+                    orderId: payment.order,
+                    amount: payment.price.amount / 100,
+                    currency: payment.price.currency,
+                    fullName: req.user.fullName
+                }),
+                publishToQueue('PAYMENT_SELLER_DASHBOARD.PAYMENT_CREATED', payment)
+            ]);
 
             res.status(200).json({ 
                 message: "Payment verified successfully!",

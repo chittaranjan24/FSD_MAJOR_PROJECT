@@ -1,3 +1,4 @@
+const { publishToQueue } = require("../broker/broker");
 const orderModel = require("../models/order.model");
 const axios = require('axios');
 
@@ -57,6 +58,8 @@ async function createOrder(req, res) {
                 },
                 shippingAddress: req.body.shippingAddress
             });
+
+            await publishToQueue('ORDER_SELLER_DASHBOARD.ORDER_CREATED', order);
 
             res.status(201).json({ 
                 message: "Order created successfully", 
