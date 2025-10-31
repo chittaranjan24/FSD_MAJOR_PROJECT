@@ -1,6 +1,7 @@
 const axios = require("axios");
 const paymentModel = require("../models/payment.model");
 const razorpay = require("../services/razorpay.service");
+const { publishToQueue } = require("../broker/broker.js");
 
 async function createPayment(req, res) {
 
@@ -73,12 +74,29 @@ async function verifyPayment(req, res) {
 
             await payment.save();
 
+            await publishToQueue('PAYMENT_NOTIFICATION.PAYMENT_COMPLETED', {
+                email: req.user.email,
+                paymentId: payment.paymentId,
+                orderId: payment.order,
+                amount: payment.price.amount / 100,
+                currency: payment.price.currency,
+                fullName: req.user.fullName
+            });
+
             res.status(200).json({ 
                 message: "Payment verified successfully!",
                 payment
             });
         } catch (error) {
             console.error("Error in payment verification:", error);
+
+            await publishToQueue('PAYMENT_NOTIFICATION.PAYMENT_FAILED', {
+                email: req.user.email,
+                paymentId: paymentId,
+                orderId: razorpayOrderId,
+                fullName: req.user.fullName
+            });
+
             return res.status(400).json({ message: "Invalid payment" });
         }
     } catch (error) {
