@@ -37,6 +37,7 @@ This project implements a distributed, microservice-based architecture tailored 
 | <img src="https://img.shields.io/badge/Payment%20Service-Fintech-purple?style=flat-square&logo=razorpay&logoColor=white" alt="Payment badge"> | **Reliable Payment Processing** | Secure payment capture and verification via Razorpay, signature validation, audit logs. |
 | <img src="https://img.shields.io/badge/Notification%20Service-Comms-cyan?style=flat-square&logo=sendinblue&logoColor=white" alt="Notification badge"> | **Automated Communications** | Event-driven email notifications for order/payment events via RabbitMQ and Nodemailer. |
 | <img src="https://img.shields.io/badge/AI--Buddy-Intelligence-black?style=flat-square&logo=openai&logoColor=white" alt="AI badge"> | **Conversational AI** | Socket-based gateway for real-time conversational tooling and operational insights. |
+| <img src="https://img.shields.io/badge/Seller%20Dashboard-Analytics-yellow?style=flat-square&logo=google-analytics&logoColor=white" alt="Seller Dashboard badge"> | **Seller Analytics** | Provides sellers with insights into their products, orders, and payments through an event-driven dashboard. |
 
 ## 🏗️ Solution Architecture
 
@@ -210,6 +211,7 @@ Each service requires its own `.env` file for configuration. Create a `.env` fil
 | **Payment** | 3005 | `MONGODB_URI`, `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET`, `AMQP_URL` |
 | **Notification** | 3007 | `MONGODB_URI`, `AMQP_URL`, `EMAIL_HOST`, `EMAIL_PORT`, `EMAIL_USER`, `EMAIL_PASS` |
 | **AI-Buddy** | 3006 | `MONGODB_URI`, `SOCKET_PORT` |
+| **Seller Dashboard** | 3008 | `MONGODB_URI`, `AMQP_URL` |
 
 #### `.env` File Templates
 
@@ -270,6 +272,13 @@ EMAIL_PASS=your_smtp_password
 PORT=3006
 MONGODB_URI=your_mongodb_connection_string
 SOCKET_PORT=4000
+```
+
+**Seller Dashboard Service (`seller-dashboard/.env`)**
+```
+PORT=3008
+MONGODB_URI=your_mongodb_connection_string
+AMQP_URL=your_rabbitmq_connection_string
 ```
 </details>
 
@@ -357,6 +366,7 @@ These services do not expose public REST APIs. The Notification service listens 
 ├── payment/      # Integrates with payment gateways (Razorpay)
 ├── notification/ # Sends email/SMS notifications based on events
 ├── ai-buddy/     # Provides AI-powered assistant features
+├── seller-dashboard/ # Provides analytics and insights for sellers
 └── README.md
 ```
 
