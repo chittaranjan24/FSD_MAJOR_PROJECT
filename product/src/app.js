@@ -7,6 +7,10 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
+app.get('/', (req, res) => {
+  res.send('Welcome to Product Service!');
+});
+
 app.use('/api/products', productRouter);
 
 module.exports = app;

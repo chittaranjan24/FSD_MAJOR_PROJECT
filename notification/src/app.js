@@ -9,7 +9,7 @@ connect().then(() => {
 });
 
 app.get('/', (req, res) => {
-    res.send('Notification Service is running');
+    res.send('Welcome to Notification Service!');
 });
 
 

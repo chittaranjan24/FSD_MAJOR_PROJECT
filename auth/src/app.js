@@ -7,6 +7,10 @@ const app = express()
 app.use(express.json())
 app.use(CookieParser())
 
+app.get('/', (req, res) => {
+  res.send('Welcome to Auth Service!')
+})
+
 app.use('/api/auth', authRouter)
 
 module.exports = app
